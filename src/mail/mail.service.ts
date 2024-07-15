@@ -7,6 +7,11 @@ import { AxiosError } from 'axios';
 export class MailService { 
     constructor(private readonly httpService: HttpService){}
 
+    sendMail(payload: MailPayload): Observable<any> {
+        const url = `${process.env.BREVO_SMTP_BASE_URL}/email`;
+        return this.httpService.post(url, payload);
+    }
+
     getTemplates(): Observable<any> {
         const url = `${process.env.BREVO_SMTP_BASE_URL}/templates`;
         return this.httpService.get<Templates>(url);
@@ -15,10 +20,5 @@ export class MailService {
     getTemplate(templateId: string): Observable<any> {
         const url = `${process.env.BREVO_SMTP_BASE_URL}/templates/${templateId}`;
         return this.httpService.get<Template>(url);
-    }
-
-    sendMail(payload: MailPayload): Observable<any> {
-        const url = `${process.env.BREVO_SMTP_BASE_URL}/email`;
-        return this.httpService.post(url, payload);
     }
 }

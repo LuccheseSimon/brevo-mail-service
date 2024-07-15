@@ -11,6 +11,11 @@ export class MailController {
 
     constructor(private mailService: MailService) {}
 
+    @Post()
+    sendMail(@Body() payload: MailPayload): Observable<any> {
+        return this.mailService.sendMail(payload);
+    }
+    
     @Get('templates')
     getTemplates(): Observable<Templates> {
         return this.mailService.getTemplates();
@@ -21,8 +26,4 @@ export class MailController {
         return this.mailService.getTemplate(templateId);
     }
 
-    @Post()
-    sendMail(@Body() payload: MailPayload): Observable<any> {
-        return this.mailService.sendMail(payload);
-    }
 }
